@@ -1,0 +1,85 @@
+/* hide the default cursor when the system is active */
+html.has-custom-cursor,
+html.has-custom-cursor body,
+html.has-custom-cursor a,
+html.has-custom-cursor button {
+    cursor: none;
+}
+
+/* main cursor element */
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform, width, height, border-radius, opacity;
+    transition:
+        width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        border-radius 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.45s ease,
+        border-color 0.45s ease,
+        opacity 0.3s ease;
+}
+
+/* hidden when the mouse leaves the window */
+.cursor.is-hidden {
+    opacity: 0;
+}
+
+/* basic hover state */
+.cursor.is-hovering {
+    background: rgba(155, 108, 255, 0.12);
+    border-color: #9b6cff;
+}
+
+/* magnetic state */
+.cursor.is-magnetic {
+    mix-blend-mode: normal;
+}
+
+/* morph state when the cursor grows to match an element */
+.cursor.is-morph {
+    border-radius: var(--cursor-radius, 16px);
+    background: rgba(155, 108, 255, 0.08);
+    border-color: #9b6cff;
+}
+
+/* optional label inside the cursor */
+.cursor-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
+    font-family: ui-monospace, sfmono-regular, menlo, monaco, consolas, monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: #f1f1f1;
+    transition:
+        opacity 0.25s ease,
+        transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cursor.is-morph .cursor-label {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* disable the custom cursor on touch devices */
+@media (hover: none), (pointer: coarse) {
+    html.has-custom-cursor,
+    html.has-custom-cursor body,
+    html.has-custom-cursor a,
+    html.has-custom-cursor button {
+        cursor: auto;
+    }
+}

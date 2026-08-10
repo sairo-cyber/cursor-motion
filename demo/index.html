@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cursor Motion — Demo</title>
+
+    <link rel="stylesheet" href="./demo.css">
+    <link rel="stylesheet" href="../src/cursor.css">
+</head>
+
+<body>
+
+    <main class="wrap">
+
+        <header>
+            <h1>Cursor Motion</h1>
+
+            <p>
+                A lightweight custom cursor with hover,
+                magnetic and morph interactions.
+            </p>
+        </header>
+
+        <section class="group">
+            <div class="label">default</div>
+
+            <div class="row">
+                <button>
+                    default hover
+                </button>
+            </div>
+        </section>
+
+        <section class="group">
+            <div class="label">magnetic</div>
+
+            <div class="row">
+                <button data-cursor="magnetic">
+                    magnetic
+                </button>
+            </div>
+        </section>
+
+        <section class="group">
+            <div class="label">morph</div>
+
+            <div class="row">
+                <button
+                    data-cursor="morph"
+                    data-cursor-text="open"
+                >
+                    morph
+                </button>
+            </div>
+        </section>
+
+        <section class="group">
+            <div class="label">magnetic morph</div>
+
+            <div class="row">
+                <a
+                    href="#"
+                    data-cursor="magnetic-morph"
+                    data-cursor-text="open"
+                >
+                    open link
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module">
+        import { createCursor } from "../src/cursor.js";
+
+        createCursor();
+    </script>
+
+</body>
+
+</html>

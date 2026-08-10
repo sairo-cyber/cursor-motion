@@ -1,0 +1,28 @@
+{
+  "name": "cursor-motion",
+  "version": "1.0.0",
+  "description": "A lightweight custom cursor with hover, magnetic and morph interactions.",
+  "type": "module",
+  "main": "./src/cursor.js",
+  "module": "./src/cursor.js",
+  "exports": {
+    ".": {
+      "import": "./src/cursor.js"
+    },
+    "./style.css": "./src/cursor.css"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "cursor",
+    "custom-cursor",
+    "cursor-animation",
+    "magnetic-cursor",
+    "morph-cursor",
+    "cursor-effects",
+    "frontend",
+    "animation"
+  ],
+  "license": "MIT"
+}
