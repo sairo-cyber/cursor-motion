@@ -5,7 +5,8 @@ export function createCursor(options = {}) {
     // stop if the device does not support fine pointer input
     if (
         typeof window === "undefined" ||
-        typeof document === "undefined"
+        typeof document === "undefined" ||
+        !document.body
     ) {
         return null;
     }
@@ -17,15 +18,25 @@ export function createCursor(options = {}) {
     }
 
     // prevent multiple cursor instances
-    if (document.querySelector(".cursor")) {
+    if (document.querySelector(".cursor[data-cursor-motion]")) {
         return null;
     }
 
     const selector = options.selector || DEFAULT_SELECTOR;
 
+    // validate the custom selector
+    try {
+        document.createElement("div").matches(selector);
+    } catch {
+        throw new TypeError(
+            "Cursor Motion: options.selector must be a valid CSS selector."
+        );
+    }
+
     // create the cursor element
     const cursor = document.createElement("div");
     cursor.className = "cursor";
+    cursor.setAttribute("data-cursor-motion", "");
     document.body.appendChild(cursor);
 
     // create the label element
@@ -59,6 +70,7 @@ export function createCursor(options = {}) {
     let targetHeight = 14;
     let isAnimating = false;
     let rafId = null;
+    let isDestroyed = false;
 
     // check if an element should trigger the cursor
     function getInteractiveTarget(element) {
@@ -95,7 +107,7 @@ export function createCursor(options = {}) {
     }
 
     function startAnimation() {
-        if (isAnimating) return;
+        if (isDestroyed || isAnimating) return;
 
         isAnimating = true;
         rafId = requestAnimationFrame(animate);
@@ -104,7 +116,7 @@ export function createCursor(options = {}) {
     function stopAnimation() {
         isAnimating = false;
 
-        if (rafId) {
+        if (rafId !== null) {
             cancelAnimationFrame(rafId);
             rafId = null;
         }
@@ -112,7 +124,11 @@ export function createCursor(options = {}) {
 
     // activate a mode when entering an interactive element
     function activateElement(element) {
-        if (!element || activeElement === element) {
+        if (
+            isDestroyed ||
+            !element ||
+            activeElement === element
+        ) {
             return;
         }
 
@@ -270,6 +286,11 @@ export function createCursor(options = {}) {
 
     // main animation loop
     function animate() {
+        if (isDestroyed) {
+            stopAnimation();
+            return;
+        }
+
         updateMagnetism();
 
         position.x +=
@@ -392,6 +413,12 @@ export function createCursor(options = {}) {
     // expose a method to remove the cursor
     return {
         destroy() {
+            if (isDestroyed) {
+                return;
+            }
+
+            isDestroyed = true;
+
             stopAnimation();
 
             document.removeEventListener(
@@ -426,6 +453,8 @@ export function createCursor(options = {}) {
             document.documentElement.classList.remove(
                 "has-custom-cursor"
             );
+
+            activeElement = null;
         }
     };
 }
