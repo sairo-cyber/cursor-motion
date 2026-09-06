@@ -4,7 +4,7 @@ A lightweight custom cursor with hover, magnetic and morph interactions.
 
 Cursor Motion replaces the default desktop cursor with a smooth animated cursor that supports multiple interaction modes.
 
-[Live Demo](https://sairo-cyber.github.io/cursor-motion/demo)
+[Live Demo (PC Only)](https://sairo-cyber.github.io/cursor-motion/demo)
 
 ## Features
 
