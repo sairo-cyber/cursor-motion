@@ -24,15 +24,19 @@ Cursor Motion replaces the default desktop cursor with a smooth animated cursor 
 
 ## Installation
 
-Install Cursor Motion with npm:
+Cursor Motion is not published on the npm registry. The package named
+`cursor-motion` on npm is a different project.
+
+Install this repository directly from GitHub:
 
 ```bash
-npm install cursor-motion
+npm install github:sairo-cyber/cursor-motion
 ```
 
 ## Usage
 
-Import the JavaScript module and the CSS file:
+Import the JavaScript module and the CSS file with a bundler such as Vite,
+Webpack or Parcel:
 
 ```js
 import { createCursor } from "cursor-motion";
@@ -263,6 +267,8 @@ Magnetic-morph elements combine both behaviors.
 
 ## Complete Example
 
+This example requires a bundler that resolves package imports.
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -270,8 +276,6 @@ Magnetic-morph elements combine both behaviors.
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cursor Motion</title>
-
-    <link rel="stylesheet" href="node_modules/cursor-motion/src/cursor.css">
 </head>
 <body>
 
@@ -298,6 +302,7 @@ Magnetic-morph elements combine both behaviors.
 
     <script type="module">
         import { createCursor } from "cursor-motion";
+        import "cursor-motion/style.css";
 
         createCursor();
     </script>
